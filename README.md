@@ -8,7 +8,20 @@
 
 A simple [Flask](https://github.com/pallets/flask) API
 
+## Features
+* Flask API
+* Dockerized environment with multi-stage builds
+* Quality controls
+    * [pre-commit](https://github.com/pre-commit/pre-commit) configuration
+    * Linting suite
+    * [pytest](https://docs.pytest.org/en/stable/) tests
+* [OpenAPI](https://github.com/OAI/OpenAPI-Specification) spec served from http://localhost:5000/apidocs
+* GitHub Actions integration for linting, testing, and version bumping
+
 ## Usage
+### Running The Application
+`make up` to serve HTTP traffic from http://localhost:5000
+
 ### Docker
 * `make build` - build the application container
 * `make up` - run the application

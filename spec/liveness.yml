@@ -1,0 +1,8 @@
+Liveness check
+---
+tags:
+  - application
+responses:
+  200:
+    schema:
+      $ref: '#/definitions/Liveness'

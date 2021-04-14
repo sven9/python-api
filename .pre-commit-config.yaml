@@ -11,6 +11,7 @@ repos:
   - id: check-json
   - id: check-toml
   - id: check-yaml
+    exclude: ^spec/
   - id: debug-statements
   - id: detect-aws-credentials
     args:
