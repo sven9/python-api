@@ -1,3 +1,10 @@
+lint:
+	pre-commit run --all-files
+
+run-tests:
+	mkdir -p ${REPORTS_DIR}/coverage
+	pytest --cov=python_api --cov-report html:${REPORTS_DIR}/coverage tests/
+
 setup-pre-commit:
 	git config --bool flake8.strict true
 	pre-commit install --hook-type pre-commit
@@ -11,7 +18,3 @@ quality-reports:
 	radon mi . > ${REPORTS_DIR}/quality/maintainability-index.txt
 	radon raw -s . > ${REPORTS_DIR}/quality/raw-metrics.txt
 	radon hal . > ${REPORTS_DIR}/quality/halstead-complexity.txt
-
-run-tests:
-	mkdir -p ${REPORTS_DIR}/coverage
-	pytest --cov=python_api --cov-report html:${REPORTS_DIR}/coverage tests/

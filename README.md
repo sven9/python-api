@@ -7,6 +7,11 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## Usage
-* `make setup-pre-commit` - installs pre-commit hooks for Git
-* `make quality-reports` - generates code quality metric reports
+
+* `run flask`
+
+## Make Commands
+* `make lint` - run linting suite
 * `make run-tests` - run tests and generate coverage report
+* `make quality-reports` - generates code quality metric reports
+* `make setup-pre-commit` - installs pre-commit hooks for Git

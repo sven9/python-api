@@ -33,6 +33,9 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Run tests
+        env:
+          FLASK_ENV: test
+          LOG_LEVEL: WARNING
         run: |
           source .venv/bin/activate
           pytest tests --cov python_api --cov-report xml
