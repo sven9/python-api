@@ -1,9 +1,21 @@
+build:
+	docker-compose build
+
+up:
+	docker-compose up
+
+shell:
+	docker exec -it python_api bash
+
+down:
+	docker-compose down
+
 lint:
 	pre-commit run --all-files
 
 run-tests:
 	mkdir -p ${REPORTS_DIR}/coverage
-	pytest --cov=python_api --cov-report html:${REPORTS_DIR}/coverage tests/
+	docker exec -it python_api pytest -s --cov=python_api --cov-report html:${REPORTS_DIR}/coverage tests/
 
 setup-pre-commit:
 	git config --bool flake8.strict true

@@ -44,7 +44,7 @@ RUN pip install -r $DEV_REQUIREMENTS_PATH
 
 COPY . .
 
-CMD ["tail", "-f", "/dev/null"]
+CMD ["flask", "run", "--host", "0.0.0.0"]
 
 FROM base AS test
 

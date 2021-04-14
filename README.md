@@ -6,11 +6,16 @@
 ![GitHub](https://img.shields.io/github/license/sven9/python-api)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+A simple [Flask](https://github.com/pallets/flask) API
+
 ## Usage
+### Docker
+* `make build` - build the application container
+* `make up` - run the application
+* `make shell` - open a shell inside the application container
+* `make down` - shut down the application
 
-* `run flask`
-
-## Make Commands
+### Tools
 * `make lint` - run linting suite
 * `make run-tests` - run tests and generate coverage report
 * `make quality-reports` - generates code quality metric reports
