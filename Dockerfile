@@ -16,7 +16,7 @@ FROM base AS builder
 
 ENV POETRY_VERSION=1.1.5 \
     POETRY_PATH=/opt/poetry
-ENV PATH="$POETRY_PATH/bin:$PATH"
+ENV PATH="$POETRY_PATH/bin:$VENV_PATH/bin:$PATH"
 
 # Prepare system for dependency installation
 RUN apt-get update && \
@@ -32,15 +32,17 @@ RUN apt-get install -y --no-install-recommends \
 
 # Install dependencies. Create dev requirements.txt to install dev dependencies as needed
 COPY pyproject.toml poetry.lock ./
-RUN poetry export --without-hashes -f requirements.txt | pip install -r /dev/stdin && \
+RUN poetry export --without-hashes -f requirements.txt | pip install --prefix $VENV_PATH -r /dev/stdin && \
     poetry export --dev --without-hashes -f requirements.txt -o $DEV_REQUIREMENTS_PATH
 
 FROM base AS development
 
+ENV PATH="$VENV_PATH/bin:$PATH"
+
 COPY --from=builder $VENV_PATH $VENV_PATH
 COPY --from=builder $DEV_REQUIREMENTS_PATH $DEV_REQUIREMENTS_PATH
 
-RUN pip install -r $DEV_REQUIREMENTS_PATH
+RUN pip install --prefix $VENV_PATH -r $DEV_REQUIREMENTS_PATH
 
 COPY . .
 
@@ -48,19 +50,24 @@ CMD ["flask", "run", "--host", "0.0.0.0"]
 
 FROM base AS test
 
+ENV PATH="$VENV_PATH/bin:$PATH"
+
 COPY --from=builder $VENV_PATH $VENV_PATH
 COPY --from=builder $DEV_REQUIREMENTS_PATH $DEV_REQUIREMENTS_PATH
 
-RUN pip install -r $DEV_REQUIREMENTS_PATH
+RUN pip install --prefix $VENV_PATH -r $DEV_REQUIREMENTS_PATH
 
 COPY . .
 
 CMD ["pytest", "tests"]
 
-FROM base AS production
+FROM base AS deployment
+
+ENV PATH="$VENV_PATH/bin:$PATH" \
+    FLASK_ENV=production
 
 COPY --from=builder $VENV_PATH $VENV_PATH
 
 COPY . .
 
-CMD ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["gunicorn", "wsgi:app"]

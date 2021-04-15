@@ -11,12 +11,15 @@ A simple [Flask](https://github.com/pallets/flask) API
 ## Features
 * Flask API
 * Dockerized environment with multi-stage builds
+    * Builds for "development", "test", and "deployment"
+    * Flask serving traffic for development, Gunicorn for deployment
 * Quality controls
     * [pre-commit](https://github.com/pre-commit/pre-commit) configuration
     * Linting suite
     * [pytest](https://docs.pytest.org/en/stable/) tests
 * [OpenAPI](https://github.com/OAI/OpenAPI-Specification) spec served from http://localhost:5000/apidocs
 * GitHub Actions integration for linting, testing, and version bumping
+* Structured logging including support for a correlation id per request
 
 ## Usage
 ### Running The Application
