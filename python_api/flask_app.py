@@ -5,6 +5,7 @@ from typing import Type
 import json_logging
 from flask import Flask
 
+from python_api.database import Session
 from python_api.openapi import configure_openapi_with_flask
 from python_api.routes import bp
 
@@ -27,5 +28,9 @@ def create_app(config_class: Type[Config] = Config) -> Flask:
     app.register_blueprint(bp)
 
     configure_openapi_with_flask(app)
+
+    @app.teardown_appcontext
+    def cleanup(resp_or_exc):
+        Session.remove()
 
     return app
