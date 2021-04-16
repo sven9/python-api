@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from flasgger import swag_from
 from flask import Blueprint
 
@@ -23,4 +25,6 @@ def health():
 
     schema = HealthCheckSchema()
 
-    return schema.dump(health_check)
+    response_code = HTTPStatus.OK if health_check.is_healthy else HTTPStatus.INTERNAL_SERVER_ERROR
+
+    return schema.dump(health_check), response_code
