@@ -25,7 +25,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install dependencies
 
@@ -36,6 +36,7 @@ jobs:
         env:
           FLASK_ENV: test
           LOG_LEVEL: WARNING
+          DATABASE_URI: "sqlite:///:memory:"
         run: |
           source .venv/bin/activate
           pytest tests --cov python_api --cov-report xml

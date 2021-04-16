@@ -1,0 +1,8 @@
+Health check
+---
+tags:
+  - application
+responses:
+  200:
+    schema:
+      $ref: '#/definitions/HealthCheck'

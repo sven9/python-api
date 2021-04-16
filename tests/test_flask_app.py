@@ -23,3 +23,11 @@ def test_liveness_route(client):
 
     assert response.status_code == HTTPStatus.OK
     assert response.json["liveness"]
+
+
+def test_health_check_route(client):
+    response = client.get("/health")
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.json["is_healthy"]
+    assert response.json["dependencies"]["is_database_healthy"]

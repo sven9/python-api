@@ -10,3 +10,26 @@ services:
       - "5000:5000"
     volumes:
       - .:/project
+    depends_on:
+      - database
+  database:
+    image: mysql:8.0.23
+    command: [
+        "--default-authentication-plugin=mysql_native_password",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+    ]
+    cap_add:
+      - SYS_NICE # Prevent "mbind: Operation not permitted" log output
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: python_api
+      MYSQL_USER: python_api
+      MYSQL_PASSWORD: python_api
+    volumes:
+      - database_volume:/var/lib/mysql
+
+volumes:
+  database_volume:

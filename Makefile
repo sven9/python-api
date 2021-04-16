@@ -15,7 +15,7 @@ lint:
 
 run-tests:
 	mkdir -p ${REPORTS_DIR}/coverage
-	docker exec -it python_api pytest -s --cov=python_api --cov-report html:${REPORTS_DIR}/coverage tests/
+	docker exec -it -e DATABASE_URI=sqlite:///:memory: python_api pytest -s --cov=python_api --cov-report html:${REPORTS_DIR}/coverage tests/
 
 setup-pre-commit:
 	git config --bool flake8.strict true
