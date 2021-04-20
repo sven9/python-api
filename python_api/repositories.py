@@ -14,6 +14,10 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
+    def find_by_username(self, username: str) -> User:
+        pass
+
+    @abstractmethod
     def create(self, user: User) -> User:
         pass
 
@@ -32,6 +36,12 @@ class UserRepositorySqlAlchemyAdapter(UserRepository):
             return session.query(User).filter(User.id == ident, User.is_deleted == False).one()  # noqa
         except NoResultFound:
             raise RepositoryException(f"`user` record not found for id: {ident}")
+
+    def find_by_username(self, username: str) -> User:
+        try:
+            return session.query(User).filter(User.username == username, User.is_deleted == False).one()  # noqa
+        except NoResultFound:
+            raise RepositoryException(f"`user` record not found for username: {username}")
 
     def create(self, user: User) -> User:
         session.add(user)

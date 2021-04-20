@@ -4,7 +4,7 @@ from flasgger import APISpec, Swagger
 from flask import Flask
 
 from python_api import PROJECT_DIR, __version__
-from python_api.schemas import HealthCheckSchema, LivenessSchema
+from python_api.schemas import HealthCheckSchema, LivenessSchema, UserSchema
 
 FLASGGER_DIR = PROJECT_DIR / "spec"
 
@@ -25,6 +25,7 @@ def configure_openapi_with_flask(app: Flask):
         definitions=[
             LivenessSchema,
             HealthCheckSchema,
+            UserSchema,
         ],
     )
 

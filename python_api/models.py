@@ -20,7 +20,7 @@ class User(Base, SoftDeleteMixin, TimestampMixin):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
-    username = Column(String(20), unique=True)
+    username = Column(String(20), nullable=False, unique=True)
 
 
 class HealthCheck:

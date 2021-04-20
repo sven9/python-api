@@ -21,8 +21,8 @@ def upgrade():
     op.create_table(
         "users",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("username", sa.String(length=20), nullable=True),
-        sa.Column("is_deleted", sa.Boolean(), nullable=True),
+        sa.Column("username", sa.String(length=20), nullable=False),
+        sa.Column("is_deleted", sa.Boolean(), nullable=False),
         sa.Column("created_on", sa.DateTime(), nullable=False),
         sa.Column("updated_on", sa.DateTime(), nullable=False),
         sa.Column("deleted_on", sa.DateTime(), nullable=True),

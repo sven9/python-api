@@ -1,21 +1,9 @@
 import pytest
 
-from python_api.database import Session, engine
 from python_api.exceptions import RepositoryException
-from python_api.models import Base, User
+from python_api.models import User
 from python_api.repositories import user_repository
 from tests.factories import UserFactory
-
-
-@pytest.fixture(autouse=True)
-def database():
-    Base.metadata.create_all(engine)
-    session = Session()
-
-    yield session
-
-    session.close()
-    Base.metadata.drop_all(bind=engine)
 
 
 class TestUserRepository:

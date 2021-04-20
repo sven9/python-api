@@ -12,3 +12,7 @@ class HealthCheckDependenciesSchema(Schema):
 class HealthCheckSchema(Schema):
     is_healthy = fields.Boolean()
     dependencies = fields.Nested(HealthCheckDependenciesSchema)
+
+
+class UserSchema(Schema):
+    username = fields.String()

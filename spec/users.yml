@@ -1,0 +1,15 @@
+Users resource
+---
+tags:
+  - users
+parameters:
+  - in: path
+    name: username
+    schema:
+      type: string
+    required: true
+    description: Username of the user to get
+responses:
+  200:
+    schema:
+      $ref: '#/definitions/User'

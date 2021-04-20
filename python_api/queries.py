@@ -2,7 +2,8 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from python_api import logger
 from python_api.database import session
-from python_api.models import HealthCheck
+from python_api.models import HealthCheck, User
+from python_api.repositories import user_repository
 from python_api.schemas import HealthCheckSchema
 
 
@@ -27,3 +28,9 @@ class HealthCheckQuery:
             return False
 
         return True
+
+
+class UserQuery:
+    @classmethod
+    def find_by_username(cls, username: str) -> User:
+        return user_repository.find_by_username(username)
